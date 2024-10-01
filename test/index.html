@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Prompt Test</title>
+</head>
+<body>
+    <h1>Ask AI</h1>
+    <input type="text" id="prompt" placeholder="Enter your prompt here">
+    <button id="askButton">Ask AI</button>
+    <div id="response"></div>
+
+    <script>
+        document.getElementById('askButton').addEventListener('click', async () => {
+            const prompt = document.getElementById('prompt').value;
+
+            if (!prompt) {
+                alert('Please enter a prompt');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:3000/api/ask-ai', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ prompt }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    document.getElementById('response').textContent = data.answer;
+                } else {
+                    document.getElementById('response').textContent = `Error: ${data.error}`;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('response').textContent = 'An error occurred';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,48 +1,21 @@
-// index.js
+const express = require('express');
 const axios = require('axios');
 require('dotenv').config();
+const cors = require('cors');
 
-// Ambil API key dari environment variable
+const app = express();
+app.use(express.json());
+app.use(cors()); // Agar bisa diakses oleh frontend yang berbeda origin
+
 const apiKey = process.env.API_KEY;
 
-// Fungsi untuk membungkus teks per baris (word wrapping)
-const wrapText = (text, maxLineLength) => {
-    let wrappedText = '';
-    let line = '';
-    
-    text.split(' ').forEach((word) => {
-        if ((line + word).length > maxLineLength) {
-            wrappedText += line.trim() + '\n'; // Tambahkan baris yang sudah penuh
-            line = ''; // Reset line untuk baris berikutnya
-        }
-        line += word + ' '; // Tambahkan kata ke baris
-    });
+app.post('/api/ask-ai', async (req, res) => {
+    const { prompt } = req.body;
 
-    // Tambahkan baris terakhir yang mungkin belum penuh
-    if (line.length > 0) {
-        wrappedText += line.trim();
+    if (!prompt) {
+        return res.status(400).json({ error: 'Prompt is required' });
     }
 
-    return wrappedText;
-};
-
-// Fungsi untuk menampilkan animasi mengetik
-const typeAnimation = (text) => {
-    let index = 0;
-    return new Promise((resolve) => {
-        const interval = setInterval(() => {
-            process.stdout.write(text.charAt(index));
-            index++;
-            if (index === text.length) {
-                clearInterval(interval);
-                resolve(); // Selesai mengetik
-            }
-        }, 10); // Kecepatan mengetik
-    });
-};
-
-// Fungsi untuk mengirim permintaan ke API Google Generative AI
-const askGemini = async (prompt) => {
     try {
         const response = await axios.post(
             `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${apiKey}`,
@@ -64,38 +37,20 @@ const askGemini = async (prompt) => {
             }
         );
 
-        // Ambil dan cetak konten dari respons
-        let content = response.data.candidates[0]?.content?.parts[0]?.text;
+        const content = response.data.candidates[0]?.content?.parts[0]?.text;
 
         if (content) {
-            // Ganti jawaban terkait pembuat, pengembang, dan owner
-            const modifiedContent = content
-                .replace(/dilatih oleh google/gi, 'dikembangkan oleh imam ariadi')
-                .replace(/Google/gi, 'imam ariadi')
-                .replace(/(pembuatnya siapa|owner|pengembangnya siapa)/gi, 'imam ariadi adalah pembuat, pengembang, dan ownernya.');
-
-            // Bungkus teks agar rapi di console (80 karakter per baris)
-            const wrappedContent = wrapText(modifiedContent, 50);
-
-            // Cetak hasil modifikasi dengan animasi mengetik
-            await typeAnimation(wrappedContent);
-            console.log(); // Menambah newline setelah animasi selesai
+            res.json({ answer: content });
         } else {
-            console.log("No content generated or an error occurred.");
-            console.log("Full response:", response.data);
+            res.status(500).json({ error: 'AI response not generated.' });
         }
     } catch (error) {
-        console.error("Error calling the API:", error.response ? error.response.data : error.message);
+        console.error(error);
+        res.status(500).json({ error: 'Error processing the AI request' });
     }
-};
+});
 
-// Mengecek argumen dari command line
-const prompt = process.argv[2];
-
-if (!prompt) {
-    console.log("Usage: node index.js \"Your question here\"");
-    process.exit(1);
-}
-
-// Panggil fungsi dengan prompt yang diberikan
-askGemini(prompt);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
