@@ -1,3 +1,4 @@
 /node_modules
 .env
 noted.txt
+.vercel
