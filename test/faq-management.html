@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ Management - UnilaMate.AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tab-button {
+            flex: 1;
+            padding: 15px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .tab-button.active {
+            background: white;
+            border-bottom: 3px solid #4CAF50;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 30px;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+            margin-right: 10px;
+        }
+        
+        .btn-primary {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #45a049;
+            transform: translateY(-1px);
+        }
+        
+        .btn-danger {
+            background: #f44336;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #da190b;
+        }
+        
+        .faq-list {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .faq-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid #4CAF50;
+            transition: transform 0.3s;
+        }
+        
+        .faq-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .faq-question {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .faq-answer {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .faq-keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .keyword-tag {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        
+        .faq-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .search-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .chat-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .chat-messages {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            background: white;
+            margin-bottom: 15px;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        
+        .message.user {
+            background: #e3f2fd;
+            margin-left: 20%;
+        }
+        
+        .message.ai {
+            background: #f1f8e9;
+            margin-right: 20%;
+        }
+        
+        .message-role {
+            font-weight: bold;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        
+        .alert-error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 FAQ Management</h1>
+            <p>Kelola FAQ untuk UnilaMate.AI</p>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="tab-button active" onclick="switchTab('chat')">💬 Test Chat</button>
+            <button class="tab-button" onclick="switchTab('search')">🔍 Search FAQ</button>
+            <button class="tab-button" onclick="switchTab('manage')">📝 Kelola FAQ</button>
+            <button class="tab-button" onclick="switchTab('add')">➕ Tambah FAQ</button>
+        </div>
+        
+        <!-- Chat Tab -->
+        <div id="chat-tab" class="tab-content active">
+            <div class="chat-section">
+                <h3>Test AI dengan FAQ Context</h3>
+                <div id="chat-messages" class="chat-messages"></div>
+                <div class="form-group">
+                    <input type="text" id="chat-input" placeholder="Ketik pertanyaan Anda..." onkeypress="handleChatEnter(event)">
+                </div>
+                <button class="btn btn-primary" onclick="sendChatMessage()">Kirim</button>
+                <button class="btn" onclick="clearChat()" style="background: #6c757d; color: white;">Clear Chat</button>
+            </div>
+        </div>
+        
+        <!-- Search Tab -->
+        <div id="search-tab" class="tab-content">
+            <div class="search-section">
+                <h3>🔍 Cari FAQ</h3>
+                <div class="form-group">
+                    <input type="text" id="search-input" placeholder="Ketik kata kunci untuk mencari FAQ..." oninput="searchFAQ()">
+                </div>
+                <div id="search-results"></div>
+            </div>
+        </div>
+        
+        <!-- Manage Tab -->
+        <div id="manage-tab" class="tab-content">
+            <h3>📚 Daftar FAQ</h3>
+            <div id="faq-list" class="faq-list"></div>
+        </div>
+        
+        <!-- Add Tab -->
+        <div id="add-tab" class="tab-content">
+            <h3>➕ Tambah FAQ Baru</h3>
+            <div id="add-alert"></div>
+            <form id="add-faq-form">
+                <div class="form-group">
+                    <label for="new-question">Pertanyaan:</label>
+                    <input type="text" id="new-question" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-answer">Jawaban:</label>
+                    <textarea id="new-answer" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="new-keywords">Keywords (pisahkan dengan koma):</label>
+                    <input type="text" id="new-keywords" placeholder="contoh: ai, teknologi, bantuan">
+                </div>
+                <button type="submit" class="btn btn-primary">Tambah FAQ</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let faqData = [];
+        
+        // Switch tabs
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+            
+            // Load data if needed
+            if (tabName === 'manage' || tabName === 'search') {
+                loadFAQData();
+            }
+        }
+        
+        // Load FAQ data
+        async function loadFAQData() {
+            try {
+                console.log('Loading FAQ data...');
+                const response = await fetch('/api/faq');
+                
+                console.log('Response status:', response.status);
+                console.log('Response headers:', response.headers);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const text = await response.text();
+                console.log('Response text:', text.substring(0, 200));
+                
+                if (!text) {
+                    throw new Error('Empty response from server');
+                }
+                
+                const data = JSON.parse(text);
+                console.log('Parsed data:', data);
+                
+                faqData = data.faq || [];
+                displayFAQList();
+            } catch (error) {
+                console.error('Error loading FAQ data:', error);
+                // Show error message to user
+                const faqList = document.getElementById('faq-list');
+                if (faqList) {
+                    faqList.innerHTML = `
+                        <div style="padding: 20px; background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; border-radius: 8px;">
+                            <h4>Error Loading FAQ Data</h4>
+                            <p>Error: ${error.message}</p>
+                            <p>Please check if the server is running on port 3000.</p>
+                            <button onclick="loadFAQData()" style="margin-top: 10px; padding: 8px 16px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Retry</button>
+                        </div>
+                    `;
+                }
+            }
+        }
+        
+        // Display FAQ list
+        function displayFAQList() {
+            const faqList = document.getElementById('faq-list');
+            faqList.innerHTML = '';
+            
+            faqData.forEach(faq => {
+                const faqItem = document.createElement('div');
+                faqItem.className = 'faq-item';
+                faqItem.innerHTML = `
+                    <div class="faq-question">${faq.question}</div>
+                    <div class="faq-answer">${faq.answer}</div>
+                    <div class="faq-keywords">
+                        ${faq.keywords.map(keyword => `<span class="keyword-tag">${keyword}</span>`).join('')}
+                    </div>
+                    <div class="faq-actions">
+                        <button class="btn btn-danger" onclick="deleteFAQ(${faq.id})">Hapus</button>
+                    </div>
+                `;
+                faqList.appendChild(faqItem);
+            });
+        }
+        
+        // Search FAQ
+        async function searchFAQ() {
+            const query = document.getElementById('search-input').value.trim();
+            const resultsDiv = document.getElementById('search-results');
+            
+            if (!query) {
+                resultsDiv.innerHTML = '';
+                return;
+            }
+            
+            // Show loading
+            resultsDiv.innerHTML = '<div style="text-align: center; padding: 20px;">🔍 Mencari...</div>';
+            
+            try {
+                console.log('Searching FAQ with query:', query);
+                const response = await fetch(`/api/faq/search?q=${encodeURIComponent(query)}`);
+                
+                console.log('Search response status:', response.status);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const text = await response.text();
+                console.log('Search response text:', text.substring(0, 200));
+                
+                if (!text) {
+                    throw new Error('Empty response from search API');
+                }
+                
+                const data = JSON.parse(text);
+                console.log('Parsed search data:', data);
+                
+                resultsDiv.innerHTML = `
+                    <h4>Hasil pencarian untuk: "${query}" (${data.total || 0} hasil)</h4>
+                    <div class="faq-list">
+                        ${(data.results || []).map(faq => `
+                            <div class="faq-item">
+                                <div class="faq-question">${faq.question}</div>
+                                <div class="faq-answer">${faq.answer}</div>
+                                <div class="faq-keywords">
+                                    ${(faq.keywords || []).map(keyword => `<span class="keyword-tag">${keyword}</span>`).join('')}
+                                </div>
+                                <small>Relevance Score: ${faq.relevanceScore ? faq.relevanceScore.toFixed(1) : 'N/A'}</small>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                
+                if (!data.results || data.results.length === 0) {
+                    resultsDiv.innerHTML = `
+                        <h4>Hasil pencarian untuk: "${query}"</h4>
+                        <div style="text-align: center; padding: 40px; color: #666;">
+                            <p>📝 Tidak ada FAQ yang ditemukan untuk kata kunci "${query}"</p>
+                            <p>Coba gunakan kata kunci yang berbeda atau lebih umum.</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error searching FAQ:', error);
+                resultsDiv.innerHTML = `
+                    <div style="padding: 20px; background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; border-radius: 8px;">
+                        <h4>Error dalam pencarian</h4>
+                        <p>Error: ${error.message}</p>
+                        <button onclick="searchFAQ()" style="margin-top: 10px; padding: 8px 16px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">Coba Lagi</button>
+                    </div>
+                `;
+            }
+        }
+        
+        // Add new FAQ
+        document.getElementById('add-faq-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const question = document.getElementById('new-question').value;
+            const answer = document.getElementById('new-answer').value;
+            const keywords = document.getElementById('new-keywords').value
+                .split(',').map(k => k.trim()).filter(k => k);
+            
+            try {
+                const response = await fetch('/api/faq', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ question, answer, keywords }),
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    showAlert('add-alert', 'FAQ berhasil ditambahkan!', 'success');
+                    document.getElementById('add-faq-form').reset();
+                } else {
+                    showAlert('add-alert', result.error, 'error');
+                }
+            } catch (error) {
+                showAlert('add-alert', 'Error: ' + error.message, 'error');
+            }
+        });
+        
+        // Delete FAQ
+        async function deleteFAQ(id) {
+            if (!confirm('Apakah Anda yakin ingin menghapus FAQ ini?')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/faq/${id}`, {
+                    method: 'DELETE',
+                });
+                
+                if (response.ok) {
+                    loadFAQData(); // Reload the list
+                } else {
+                    alert('Gagal menghapus FAQ');
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+        
+        // Chat functionality
+        async function sendChatMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message to chat
+            addMessageToChat('user', message);
+            input.value = '';
+            
+            // Show loading message
+            const loadingDiv = addMessageToChat('ai', '🤔 Sedang berpikir...');
+            
+            try {
+                console.log('Sending chat message:', message);
+                const response = await fetch('/api/ask-ai', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ prompt: message }),
+                });
+                
+                console.log('Chat response status:', response.status);
+                
+                // Remove loading message
+                loadingDiv.remove();
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('Chat API error:', errorText);
+                    throw new Error(`Server error: ${response.status} - ${errorText}`);
+                }
+                
+                const text = await response.text();
+                console.log('Chat response text:', text.substring(0, 200));
+                
+                if (!text) {
+                    throw new Error('Empty response from chat API');
+                }
+                
+                const data = JSON.parse(text);
+                console.log('Parsed chat data:', data);
+                
+                if (data.answer) {
+                    addMessageToChat('ai', data.answer);
+                } else {
+                    throw new Error('No answer in response');
+                }
+            } catch (error) {
+                console.error('Chat error:', error);
+                // Remove loading message if still there
+                if (loadingDiv && loadingDiv.parentNode) {
+                    loadingDiv.remove();
+                }
+                addMessageToChat('ai', `❌ Error: ${error.message}\n\nSilakan coba lagi atau periksa koneksi server.`);
+            }
+        }
+        
+        function addMessageToChat(role, message) {
+            const chatMessages = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${role}`;
+            messageDiv.innerHTML = `
+                <div class="message-role">${role}</div>
+                <div>${message}</div>
+            `;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            return messageDiv; // Return the element so it can be removed if needed
+        }
+        
+        function handleChatEnter(event) {
+            if (event.key === 'Enter') {
+                sendChatMessage();
+            }
+        }
+        
+        function clearChat() {
+            document.getElementById('chat-messages').innerHTML = '';
+        }
+        
+        // Show alert
+        function showAlert(containerId, message, type) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = `
+                <div class="alert alert-${type}">
+                    ${message}
+                </div>
+            `;
+            
+            setTimeout(() => {
+                container.innerHTML = '';
+            }, 5000);
+        }
+        
+        // Initialize
+        console.log('FAQ Management page loaded');
+        console.log('Current URL:', window.location.href);
+        
+        // Test server connection
+        fetch('/api/faq')
+            .then(response => {
+                console.log('Initial server test - Status:', response.status);
+                return response.text();
+            })
+            .then(text => {
+                console.log('Initial server test - Response:', text.substring(0, 100));
+            })
+            .catch(error => {
+                console.error('Initial server test failed:', error);
+            });
+        
+        loadFAQData();
+    </script>
+</body>
+</html>

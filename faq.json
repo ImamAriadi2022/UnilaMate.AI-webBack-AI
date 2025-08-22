@@ -1,0 +1,89 @@
+{
+  "faq": [
+    {
+      "id": 1,
+      "question": "Apa itu UnilaMate.AI?",
+      "answer": "UnilaMate.AI adalah platform AI yang membantu mahasiswa dan dosen dalam berbagai kebutuhan akademik. Platform ini menggunakan teknologi artificial intelligence terdepan untuk memberikan bantuan dalam penelitian, penulisan, analisis data, dan berbagai tugas akademik lainnya.",
+      "keywords": ["unilamate", "ai", "platform", "akademik", "mahasiswa", "dosen", "artificial intelligence", "teknologi"]
+    },
+    {
+      "id": 2,
+      "question": "Bagaimana cara menggunakan UnilaMate.AI?",
+      "answer": "Anda dapat menggunakan UnilaMate.AI melalui web interface atau API. Cukup masukkan pertanyaan Anda dan sistem akan memberikan jawaban yang relevan. Platform ini mendukung berbagai jenis pertanyaan akademik dan dapat membantu dalam penelitian, analisis, dan pembelajaran.",
+      "keywords": ["cara", "menggunakan", "web", "api", "pertanyaan", "jawaban", "tutorial", "panduan"]
+    },
+    {
+      "id": 3,
+      "question": "Apakah UnilaMate.AI gratis?",
+      "answer": "UnilaMate.AI menyediakan paket gratis dengan fitur terbatas dan paket premium untuk fitur lengkap. Paket gratis cocok untuk pengguna casual, sementara paket premium memberikan akses ke fitur advanced seperti analisis mendalam, unlimited queries, dan priority support.",
+      "keywords": ["gratis", "free", "harga", "biaya", "paket", "premium", "pricing", "subscription"]
+    },
+    {
+      "id": 4,
+      "question": "Bahasa apa saja yang didukung?",
+      "answer": "UnilaMate.AI mendukung bahasa Indonesia dan bahasa Inggris dengan deteksi bahasa otomatis. Sistem dapat mengenali bahasa yang Anda gunakan dan memberikan respons dalam bahasa yang sesuai.",
+      "keywords": ["bahasa", "indonesia", "inggris", "language", "support", "multilingual", "deteksi"]
+    },
+    {
+      "id": 5,
+      "question": "Bagaimana cara menghubungi support?",
+      "answer": "Anda dapat menghubungi tim support melalui email: support@unilamate.ai atau melalui live chat di website. Tim support kami siap membantu 24/7 untuk menjawab pertanyaan dan menyelesaikan masalah Anda.",
+      "keywords": ["support", "bantuan", "kontak", "email", "chat", "help", "customer service"]
+    },
+    {
+      "id": 6,
+      "question": "Bagaimana alur kerja UnilaMate.AI?",
+      "answer": "Alur kerja UnilaMate.AI: 1) User menginput pertanyaan atau query melalui web interface atau API, 2) Sistem melakukan deteksi bahasa otomatis, 3) AI memproses query dengan context dari knowledge base, 4) Sistem menganalisis intent dan mencari informasi relevan, 5) AI menghasilkan respons yang sesuai dan memberikan jawaban komprehensif kepada user.",
+      "keywords": ["alur", "kerja", "workflow", "proses", "tahapan", "sistem", "cara kerja"]
+    },
+    {
+      "id": 7,
+      "question": "Apa saja fitur unggulan UnilaMate.AI?",
+      "answer": "Fitur unggulan UnilaMate.AI meliputi: Asisten AI untuk mahasiswa dan dosen, bantuan tugas akademik, analisis dokumen otomatis, chatbot interaktif yang cerdas, support multi-bahasa dengan deteksi otomatis, knowledge base yang terus diperbarui, dan integrasi API yang mudah digunakan.",
+      "keywords": ["fitur", "unggulan", "features", "kemampuan", "analisis", "chatbot", "akademik"]
+    },
+    {
+      "id": 8,
+      "question": "Apakah data saya aman di UnilaMate.AI?",
+      "answer": "Ya, keamanan data adalah prioritas utama kami. UnilaMate.AI menggunakan enkripsi end-to-end, secure servers, dan mengikuti standar keamanan internasional. Data personal dan akademik Anda dilindungi dengan sistem keamanan berlapis.",
+      "keywords": ["keamanan", "data", "privacy", "aman", "enkripsi", "security", "privasi"]
+    },
+    {
+      "id": 9,
+      "question": "Bisakah UnilaMate.AI membantu dengan skripsi dan thesis?",
+      "answer": "Tentu saja! UnilaMate.AI sangat cocok untuk membantu penelitian skripsi dan thesis. Kami dapat membantu dengan literature review, analisis data, penulisan akademik, formatting, dan memberikan saran metodologi penelitian.",
+      "keywords": ["skripsi", "thesis", "penelitian", "literature", "review", "akademik", "metodologi"]
+    },
+    {
+      "id": 10,
+      "question": "Bagaimana akurasi jawaban UnilaMate.AI?",
+      "answer": "UnilaMate.AI menggunakan model AI terdepan dengan akurasi tinggi. Sistem kami terus dilatih dengan data akademik terkini dan memiliki knowledge base yang komprehensif. Namun, kami selalu menyarankan untuk melakukan verifikasi informasi penting.",
+      "keywords": ["akurasi", "accuracy", "kualitas", "reliable", "terpercaya", "valid"]
+    }
+  ],
+  "website_info": {
+    "name": "UnilaMate.AI",
+    "description": "Platform AI terdepan untuk pendidikan tinggi yang membantu mahasiswa dan dosen dalam berbagai kebutuhan akademik dengan teknologi artificial intelligence yang canggih",
+    "features": [
+      "Asisten AI pintar untuk mahasiswa dan dosen",
+      "Bantuan tugas akademik dan penelitian",
+      "Analisis dokumen otomatis dengan AI",
+      "Chatbot interaktif yang responsif",
+      "Multi-bahasa support dengan deteksi otomatis",
+      "Knowledge base akademik yang komprehensif",
+      "API integration yang mudah digunakan",
+      "Security dan privacy protection berlapis"
+    ],
+    "contact": {
+      "email": "support@unilamate.ai",
+      "website": "https://unilamate.ai",
+      "phone": "+62-21-1234-5678"
+    },
+    "technical_specs": {
+      "models": ["Groq Llama3-8B-8192", "Custom Academic Models"],
+      "languages": ["Indonesian", "English"],
+      "response_time": "< 3 seconds",
+      "uptime": "99.9%"
+    }
+  }
+}
